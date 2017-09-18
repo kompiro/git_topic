@@ -23,3 +23,7 @@ PreCommit:
 CommitMsg:
   CapitalizedSubject:
     enabled: false # Use emoji prefix
+
+PrePush:
+  RSpec:
+    enabled: true
