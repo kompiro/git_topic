@@ -1,10 +1,10 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'git/topic/version'
+require 'git_topic/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'git-topic'
-  spec.version       = Git::Topic::VERSION
+  spec.version       = GitTopic::VERSION
   spec.authors       = ['Hiroki Kondo']
   spec.email         = ['kompiro@gmail.com']
 

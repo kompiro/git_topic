@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'git/topic/cli'
+require 'git_topic/cli'
 
-Git::Topic::Cli.start(ARGV)
+GitTopic::Cli.start(ARGV)
