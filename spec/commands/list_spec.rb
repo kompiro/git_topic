@@ -7,6 +7,6 @@ RSpec.describe GitTopic::Commands::List do
 
   describe '#execute' do
     subject { command.execute }
-    it { expect { subject } .to output(/master/).to_stdout }
+    it { expect { subject } .to output(/mainline/).to_stdout }
   end
 end
