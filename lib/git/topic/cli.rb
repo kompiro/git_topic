@@ -1,18 +1,24 @@
 require 'thor'
+require 'open3'
 
 module Git
   module Topic
     # CLI command entry point
     class Cli < Thor
       default_command :list
-      desc 'hello NAME', 'say hello to NAME'
-      def hello(name)
-        puts "Hello #{name}"
+
+      desc 'list', 'Show managed topics'
+      def list
+        Open3.popen3 'git branch' do |_stdin, stdout|
+          stdout.each do |branch|
+            puts branch
+          end
+        end
       end
 
-      desc 'list', 'show topics'
-      def list
-        puts 'list'
+      desc 'add SUMMARY', 'Remember topic'
+      def add(summary)
+        puts summary
       end
     end
   end
