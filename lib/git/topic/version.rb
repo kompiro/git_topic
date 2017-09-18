@@ -1,5 +1,5 @@
 module Git
-  module Topics
+  module Topic
     VERSION = "0.1.0"
   end
 end

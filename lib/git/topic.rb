@@ -1,7 +1,7 @@
-require "git/topics/version"
+require "git/topic/version"
 
 module Git
-  module Topics
+  module Topic
     # Your code goes here...
   end
 end

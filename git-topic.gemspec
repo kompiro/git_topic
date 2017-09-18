@@ -1,17 +1,17 @@
 # coding: utf-8
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "git/topics/version"
+require "git/topic/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "git-topics"
-  spec.version       = Git::Topics::VERSION
+  spec.name          = "git-topic"
+  spec.version       = Git::Topic::VERSION
   spec.authors       = ["Hiroki Kondo"]
   spec.email         = ["kompiro@gmail.com"]
 
   spec.summary       = %q{Manage your topic branches}
-  spec.description   = %q{git-topics enables to manage your topic branches by simple sub commands like `git topic (add/list/delete)`. This sub commands use branch description.}
-  spec.homepage      = "https://github.com/kompiro/git-topics"
+  spec.description   = %q{git-topic enables to manage your topic branches by simple sub commands like `git topic (add/list/delete)`. This sub commands use branch description.}
+  spec.homepage      = "https://github.com/kompiro/git-topic"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "git/topics"
+require "git/topic"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
