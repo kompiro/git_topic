@@ -3,6 +3,7 @@ require 'open3'
 
 require 'git_topic/commands/list'
 require 'git_topic/commands/edit'
+require 'git_topic/commands/show'
 
 module GitTopic
   # CLI command entry point
@@ -18,6 +19,12 @@ module GitTopic
     desc 'edit [branch_name]', 'Edit topic description'
     def edit(branch_name = nil)
       command = GitTopic::Commands::Edit.new branch_name
+      command.execute
+    end
+
+    desc 'show [branch_name]', 'Show topic description'
+    def show(branch_name = nil)
+      command = GitTopic::Commands::Show.new branch_name
       command.execute
     end
 
