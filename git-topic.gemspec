@@ -31,4 +31,5 @@ DESC
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'pry', '~> 0.10.4'
   spec.add_development_dependency 'rubocop', '~> 0.50.0'
+  spec.add_development_dependency 'rubocop-rspec', '~> 1.17.1'
 end
