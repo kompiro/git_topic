@@ -3,14 +3,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'git_topic/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'git-topic'
+  spec.name          = 'git_topic'
   spec.version       = GitTopic::VERSION
   spec.authors       = ['Hiroki Kondo']
   spec.email         = ['kompiro@gmail.com']
 
   spec.summary       = 'Manage your topic branches'
   spec.description   = <<'DESC'
-  git-topic enables to manage your topic branches by simple sub commands like "git topic (add/list/delete)".
+  git-topic enables you to manage your topic branches by simple sub commands like "git topic (add/list/delete)".
   This sub commands use branch description.
 DESC
   spec.homepage      = 'https://github.com/kompiro/git-topic'
