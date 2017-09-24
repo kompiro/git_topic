@@ -35,7 +35,8 @@ module GitTopic
         current_branch = nil
         _stdin, stdout, _stderr, _wait_thr = *Open3.popen3('git branch -v')
         stdout.each do |line|
-          branch_name, rev, current_branch = parse_branch(line)
+          branch_name, rev, current_candidate = parse_branch(line)
+          current_branch ||= current_candidate
           branches << Branch.new(branch_name, rev)
         end
         [branches, current_branch]
@@ -45,8 +46,7 @@ module GitTopic
         matched = line.match(/\s*(\* )?(\S+)\s+(\S+)\s+(.*)/)
         raise 'cannot parse branch' unless matched
         branch_name = matched[2]
-        current_branch = nil
-        current_branch = branch_name if matched[1]
+        current_branch = matched[1] ? branch_name : nil
         rev = matched[3]
         [branch_name, rev, current_branch]
       end
