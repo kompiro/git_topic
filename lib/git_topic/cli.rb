@@ -1,6 +1,7 @@
 require 'thor'
 require 'open3'
 
+require 'git_topic/version'
 require 'git_topic/commands/list'
 require 'git_topic/commands/edit'
 require 'git_topic/commands/show'
@@ -11,7 +12,14 @@ module GitTopic
     default_command :list
 
     desc 'list', 'Show managed topics'
+    option :version, aliases: 'v'
     def list
+      # Show version if -v specified
+      if options[:version]
+        version and return if options[:version]
+        return
+      end
+
       command = GitTopic::Commands::List.new
       command.execute
     end
@@ -26,6 +34,11 @@ module GitTopic
     def show(branch_name = nil)
       command = GitTopic::Commands::Show.new branch_name
       command.execute
+    end
+
+    desc 'version', 'Show version'
+    def version
+      puts GitTopic::VERSION
     end
 
     desc 'add topic_name', 'Remember topic'

@@ -10,10 +10,10 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Manage your topic branches'
   spec.description   = <<'DESC'
-  git-topic enables you to manage your topic branches by simple sub commands like "git topic (add/list/delete)".
+  git-topic enables you to manage your topic branches by simple sub commands like "git topic (list/edit/show)".
   This sub commands use branch description.
 DESC
-  spec.homepage      = 'https://github.com/kompiro/git-topic'
+  spec.homepage      = 'https://github.com/kompiro/git_topic'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|

@@ -1,4 +1,4 @@
-# git_topic` 
+# git_topic 
 
 ![Travis CI](https://travis-ci.org/kompiro/git_topic.svg?branch=master)
 
@@ -13,9 +13,9 @@ Install it yourself as:
 ## Usage
 
     Commands:
+      git-topic [list]                 # Show managed topics
       git-topic edit [branch_name]     # Edit topic description
       git-topic show [branch_name]     # Show topic description
-      git-topic list                   # Show managed topics
     
     Plan to support:
       git-topic add topic_name         # Remember topic
