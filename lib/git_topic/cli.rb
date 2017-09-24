@@ -16,7 +16,7 @@ module GitTopic
     def list
       # Show version if -v specified
       if options[:version]
-        version and return if options[:version]
+        version if options[:version]
         return
       end
 
