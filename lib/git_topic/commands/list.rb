@@ -6,6 +6,18 @@ module GitTopic
     class List
       include Term::ANSIColor
       def execute
+        print_header
+        print_contents
+      end
+
+      private
+
+      def print_header
+        printf "  %-20s %s\n", 'Branch', 'Summary'
+        puts '-' * 80
+      end
+
+      def print_contents
         branches, current_branch = parse_branch
         branches.each do |branch_name|
           begin
