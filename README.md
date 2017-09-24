@@ -1,6 +1,6 @@
-# GitTopic
+# git_topic` 
 
-![Travis CI](https://travis-ci.org/kompiro/git-topic.svg?branch=master)
+![Travis CI](https://travis-ci.org/kompiro/git_topic.svg?branch=master)
 
 `git topic` is a subcommand of git to manage your topic branches by branch description.
 
@@ -8,7 +8,7 @@
 
 Install it yourself as:
 
-    $ gem install git-topic
+    $ gem install git_topic
 
 ## Usage
 
