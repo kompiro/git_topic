@@ -6,12 +6,15 @@ RSpec.describe GitTopic::Commands::List do
   it { is_expected.to be_truthy }
 
   describe '#execute' do
-    before do
+    def setup_git_branch
       stdout = instance_double(IO)
-      allow(stdout).to receive(:each).and_yield('* master')
+      info = '* master  cc72152 :memo: Note about overcommit when release'
+      allow(stdout).to receive(:each).and_yield(info)
       allow(Open3).to receive(:popen3)
-        .with('git branch').and_return([nil, stdout, nil, nil])
+        .with('git branch -v').and_return([nil, stdout, nil, nil])
+    end
 
+    def setup_git_config
       desc_out = instance_double(IO)
       allow(desc_out).to receive(:readline).and_return('mainline')
       allow(Open3).to receive(:popen3)
@@ -19,10 +22,14 @@ RSpec.describe GitTopic::Commands::List do
         .and_return([nil, desc_out, nil, nil])
     end
 
+    before do
+      setup_git_branch
+      setup_git_config
+    end
+
     subject(:executed) { command.execute }
 
-    it { expect { executed } .to output(/mainline/).to_stdout }
-    it { expect { executed } .to output(/Branch/).to_stdout }
-    it { expect { executed } .to output(/Summary/).to_stdout }
+    it { expect { executed } .to output(/Branch\s+Rev\s+Summary/).to_stdout }
+    it { expect { executed } .to output(/\*.*master.*mainline/).to_stdout }
   end
 end
