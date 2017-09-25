@@ -25,7 +25,7 @@ module GitTopic
           begin
             print_line(current_branch, branch)
           rescue EOFError => _ex
-            nop
+            # nop
           end
         end
       end
