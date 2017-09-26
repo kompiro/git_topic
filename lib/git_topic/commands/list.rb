@@ -22,11 +22,7 @@ module GitTopic
       def print_contents
         branches, current_branch = parse_branches
         branches.each do |branch|
-          begin
-            print_line(current_branch, branch)
-          rescue EOFError => _ex
-            # nop
-          end
+          print_line(current_branch, branch)
         end
       end
 
@@ -42,12 +38,18 @@ module GitTopic
         [branches, current_branch]
       end
 
+      BRANCH_FORMAT = /
+        \s*(?<current_exp>\*\ )?
+        (?<branch_name>\S+)\s+
+        (?<rev>\S+)\s+(.*)
+      /x
+
       def parse_branch(line)
-        matched = line.match(/\s*(\* )?(\S+)\s+(\S+)\s+(.*)/)
+        matched = line.match(BRANCH_FORMAT)
         raise 'cannot parse branch' unless matched
-        branch_name = matched[2]
-        current_branch = matched[1] ? branch_name : nil
-        rev = matched[3]
+        branch_name = matched[:branch_name]
+        rev = matched[:rev]
+        current_branch = matched[:current_exp] ? branch_name : nil
         [branch_name, rev, current_branch]
       end
 
@@ -55,6 +57,7 @@ module GitTopic
         branch_name = branch.name
         rev = branch.rev
         description = get_description_of branch_name
+        return if description.nil?
         branch_format = if branch_name == current_branch
                           "* #{green}#{bold}%-20s#{clear}"
                         else
@@ -67,6 +70,7 @@ module GitTopic
         config_key = "branch.#{branch}.description"
         command = "git config #{config_key}"
         _stdin, stdout, _stderr, _wait_thr = *Open3.popen3(command)
+        return nil if stdout.eof?
         stdout.readline
       end
     end
