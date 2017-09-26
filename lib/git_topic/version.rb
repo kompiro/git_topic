@@ -1,3 +1,3 @@
 module GitTopic
-  VERSION = '0.2.4.dev'.freeze
+  VERSION = '0.2.5.dev'.freeze
 end
