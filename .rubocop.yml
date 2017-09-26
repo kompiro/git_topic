@@ -6,3 +6,7 @@ AllCops:
   RSpec:
     Patterns:
       - '.+'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'

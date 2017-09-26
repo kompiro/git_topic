@@ -10,16 +10,18 @@ RSpec.describe GitTopic::Commands::List do
       stdout = instance_double(IO)
       info = '* master  cc72152 :memo: Note about overcommit when release'
       allow(stdout).to receive(:each).and_yield(info)
+      allow(stdout).to receive(:eof?).and_return(false)
       allow(Open3).to receive(:popen3)
         .with('git branch -v').and_return([nil, stdout, nil, nil])
     end
 
     def setup_git_config
-      desc_out = instance_double(IO)
-      allow(desc_out).to receive(:readline).and_return('mainline')
+      stdout = instance_double(IO)
+      allow(stdout).to receive(:readline).and_return('mainline')
+      allow(stdout).to receive(:eof?).and_return(false)
       allow(Open3).to receive(:popen3)
         .with('git config branch.master.description')
-        .and_return([nil, desc_out, nil, nil])
+        .and_return([nil, stdout, nil, nil])
     end
 
     before do
