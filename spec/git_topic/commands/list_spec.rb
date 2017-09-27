@@ -41,6 +41,6 @@ RSpec.describe GitTopic::Commands::List do
 
     it { expect { executed } .to output(/Branch\s+Rev\s+Summary/).to_stdout }
     it { expect { executed } .to output(/\*.*master.*mainline/).to_stdout }
-    xit { expect { executed } .to output(/\*.*branc\.\.\..*/).to_stdout }
+    it { expect { executed } .to output(/.*branc\.\.\..*/).to_stdout }
   end
 end

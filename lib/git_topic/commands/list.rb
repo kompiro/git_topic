@@ -60,12 +60,9 @@ module GitTopic
         rev = branch.rev
         description = get_description_of branch_name
         return if description.nil?
-        branch_format = if branch_name == current_branch
-                          "* #{green}#{bold}%-20s#{clear}"
-                        else
-                          "  #{bold}%-20s#{clear}"
-                        end
-        puts format("#{branch_format} %s %s", branch_name, rev, description)
+        branch_format = branch_format(branch_name, current_branch)
+        truncated_name = truncate(branch_name)
+        puts format("#{branch_format} %s %s", truncated_name, rev, description)
       end
 
       def get_description_of(branch)
@@ -74,6 +71,24 @@ module GitTopic
         _stdin, stdout, _stderr, _wait_thr = *Open3.popen3(command)
         return nil if stdout.eof?
         stdout.readline
+      end
+
+      def branch_format(branch_name, current_branch)
+        if branch_name == current_branch
+          "* #{green}#{bold}%-20s#{clear}"
+        else
+          "  #{bold}%-20s#{clear}"
+        end
+      end
+
+      def truncate(str, truncate_at: 20)
+        omission = '...'
+        length_with_room_for_omission = truncate_at - omission.length
+        if str.length > truncate_at
+          "#{str[0, length_with_room_for_omission]}#{omission}"
+        else
+          str
+        end
       end
     end
   end
