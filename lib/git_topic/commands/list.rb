@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'term/ansicolor'
 
 module GitTopic
@@ -15,7 +17,7 @@ module GitTopic
       Branch = Struct.new('Branch', :name, :rev)
 
       def print_header
-        printf "  %-20s %-7s %s\n", 'Branch', 'Rev', 'Summary'
+        puts format('  %-20s %-7s %s', :Branch, :Rev, :Summary)
         puts '-' * 80
       end
 
@@ -63,7 +65,7 @@ module GitTopic
                         else
                           "  #{bold}%-20s#{clear}"
                         end
-        printf "#{branch_format} %s %s", branch_name, rev, description
+        puts format("#{branch_format} %s %s", branch_name, rev, description)
       end
 
       def get_description_of(branch)

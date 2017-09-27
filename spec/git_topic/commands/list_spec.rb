@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe GitTopic::Commands::List do
@@ -7,20 +9,26 @@ RSpec.describe GitTopic::Commands::List do
 
   describe '#execute' do
     def setup_git_branch
-      stdout = instance_double(IO)
-      info = '* master  cc72152 :memo: Note about overcommit when release'
-      allow(stdout).to receive(:each).and_yield(info)
-      allow(stdout).to receive(:eof?).and_return(false)
+      output = <<~OUT
+        * master                 cc72152 :memo: Note about overcommit when release
+          longlongnamebranchname 549db63 :up: Bump up development version
+      OUT
+      stdout = StringIO.new(output)
       allow(Open3).to receive(:popen3)
         .with('git branch -v').and_return([nil, stdout, nil, nil])
     end
 
     def setup_git_config
+      setup_branch_description('master', 'mainline')
+      setup_branch_description('longlongnamebranchname', 'long name branch')
+    end
+
+    def setup_branch_description(branch_name, description)
       stdout = instance_double(IO)
-      allow(stdout).to receive(:readline).and_return('mainline')
+      allow(stdout).to receive(:readline).and_return(description)
       allow(stdout).to receive(:eof?).and_return(false)
       allow(Open3).to receive(:popen3)
-        .with('git config branch.master.description')
+        .with("git config branch.#{branch_name}.description")
         .and_return([nil, stdout, nil, nil])
     end
 
@@ -33,5 +41,6 @@ RSpec.describe GitTopic::Commands::List do
 
     it { expect { executed } .to output(/Branch\s+Rev\s+Summary/).to_stdout }
     it { expect { executed } .to output(/\*.*master.*mainline/).to_stdout }
+    xit { expect { executed } .to output(/\*.*branc\.\.\..*/).to_stdout }
   end
 end
