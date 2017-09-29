@@ -8,11 +8,7 @@ RSpec.describe GitTopic::Commands::List do
   it { is_expected.to be_truthy }
 
   describe '#execute' do
-    def setup_git_branch
-      output = <<~OUT
-        * master                 cc72152 :memo: Note about overcommit when release
-          longlongnamebranchname 549db63 :up: Bump up development version
-      OUT
+    def setup_git_branch(output)
       stdout = StringIO.new(output)
       allow(Open3).to receive(:popen3)
         .with('git branch -v').and_return([nil, stdout, nil, nil])
@@ -32,15 +28,36 @@ RSpec.describe GitTopic::Commands::List do
         .and_return([nil, stdout, nil, nil])
     end
 
-    before do
-      setup_git_branch
-      setup_git_config
+    context 'rev length is 7' do
+      before do
+        output = <<~OUT
+          * master                 cc72152 :memo: Note about overcommit when release
+            longlongnamebranchname 549db63 :up: Bump up development version
+        OUT
+        setup_git_branch(output)
+        setup_git_config
+      end
+
+      subject(:executed) { command.execute }
+
+      it { expect { executed } .to output(/Branch\s+Rev\s+Summary/).to_stdout }
+      it { expect { executed } .to output(/\*.*master.*mainline/).to_stdout }
+      it { expect { executed } .to output(/.*branc\.\.\..*/).to_stdout }
     end
 
-    subject(:executed) { command.execute }
+    context 'more log rev length' do
+      before do
+        output = <<~OUT
+          * master                 cc7215212345 :memo: Note about overcommit when release
+            longlongnamebranchname 549db6312345 :up: Bump up development version
+        OUT
+        setup_git_branch(output)
+        setup_git_config
+      end
 
-    it { expect { executed } .to output(/Branch\s+Rev\s+Summary/).to_stdout }
-    it { expect { executed } .to output(/\*.*master.*mainline/).to_stdout }
-    it { expect { executed } .to output(/.*branc\.\.\..*/).to_stdout }
+      subject(:executed) { command.execute }
+
+      it { expect { executed } .to output(/Branch\s+Rev\s+Summary/).to_stdout }
+    end
   end
 end

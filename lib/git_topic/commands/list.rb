@@ -8,21 +8,23 @@ module GitTopic
     class List
       include Term::ANSIColor
       def execute
-        print_header
-        print_contents
+        branches, current_branch = parse_branches
+        print_header(branches.first)
+        print_contents(branches, current_branch)
       end
 
       private
 
       Branch = Struct.new('Branch', :name, :rev)
 
-      def print_header
-        puts format('  %-20s %-7s %s', :Branch, :Rev, :Summary)
+      def print_header(branch)
+        rev_length = branch.rev.length
+        header_format = "  %-20s %-#{rev_length}s %s"
+        puts format(header_format, :Branch, :Rev, :Summary)
         puts '-' * 80
       end
 
-      def print_contents
-        branches, current_branch = parse_branches
+      def print_contents(branches, current_branch)
         branches.each do |branch|
           print_line(current_branch, branch)
         end
