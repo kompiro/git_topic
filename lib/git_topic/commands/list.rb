@@ -58,7 +58,7 @@ module GitTopic
       def print_line(current_branch, branch)
         branch_name = branch.name
         rev = branch.rev
-        description = get_description_of branch_name
+        description = get_description_of branch
         return if description.nil?
         branch_format = branch_format(branch_name, current_branch)
         truncated_name = truncate(branch_name)
@@ -66,7 +66,7 @@ module GitTopic
       end
 
       def get_description_of(branch)
-        config_key = "branch.#{branch}.description"
+        config_key = "branch.#{branch.name}.description"
         command = "git config #{config_key}"
         _stdin, stdout, _stderr, _wait_thr = *Open3.popen3(command)
         return nil if stdout.eof?
