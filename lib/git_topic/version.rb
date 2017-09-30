@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module GitTopic
-  VERSION = '0.2.6.dev'
+  VERSION = '0.3.0.dev'
 end
