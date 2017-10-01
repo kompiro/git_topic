@@ -12,5 +12,16 @@ RSpec.describe GitTopic::Formatter::Topics do
 
     it { expect { printed } .to output(/[Topics]/).to_stdout }
     it { expect { printed } .to output(/Topic\s+Summary/).to_stdout }
+
+    context 'set topic summary' do
+      before do
+        output = <<~OUT
+          topic.test hoge
+        OUT
+        setup_git_config output
+      end
+
+      it { expect { printed } .to output(/.{2}test\s{16}.{4} hoge/).to_stdout }
+    end
   end
 end
