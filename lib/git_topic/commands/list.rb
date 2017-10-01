@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'git_topic/formatter/branches'
+require 'git_topic/formatter/topics'
 
 module GitTopic
   module Commands
@@ -14,6 +15,10 @@ module GitTopic
       def execute
         branches = ::GitTopic::Formatter::Branches.new @options
         branches.print
+        return unless @all
+        puts ''
+        topics = ::GitTopic::Formatter::Topics.new
+        topics.print
       end
     end
   end
