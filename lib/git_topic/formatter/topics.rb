@@ -10,8 +10,7 @@ module GitTopic
       include Term::ANSIColor
 
       def print
-        puts '[Topics]'
-        puts ''
+        puts "#{bold}[Topics]#{clear}"
         topics = parse_topics
         print_header
         print_contents topics

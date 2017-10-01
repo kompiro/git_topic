@@ -16,10 +16,7 @@ module GitTopic
       Branch = Struct.new('Branch', :name, :rev)
 
       def print
-        if @all
-          puts '[Branches]'
-          puts ''
-        end
+        puts "#{bold}[Branches]#{clear}" if @all
         branches, current_branch = parse_branches
         print_header(branches.first)
         print_contents(branches, current_branch)

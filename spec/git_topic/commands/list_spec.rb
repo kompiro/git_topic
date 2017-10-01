@@ -5,8 +5,6 @@ require 'spec_helper'
 RSpec.describe GitTopic::Commands::List do
   subject(:command) { described_class.new }
 
-  it { is_expected.to be_truthy }
-
   describe '#execute' do
     def setup_git_branch(output)
       setup_command('git branch -v', output)
