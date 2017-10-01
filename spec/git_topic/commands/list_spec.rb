@@ -9,9 +9,7 @@ RSpec.describe GitTopic::Commands::List do
 
   describe '#execute' do
     def setup_git_branch(output)
-      stdout = StringIO.new(output)
-      allow(Open3).to receive(:popen3)
-        .with('git branch -v').and_return([nil, stdout, nil, nil])
+      setup_command('git branch -v', output)
     end
 
     def setup_git_config
@@ -20,12 +18,7 @@ RSpec.describe GitTopic::Commands::List do
     end
 
     def setup_branch_description(branch_name, description)
-      stdout = instance_double(IO)
-      allow(stdout).to receive(:readline).and_return(description)
-      allow(stdout).to receive(:eof?).and_return(false)
-      allow(Open3).to receive(:popen3)
-        .with("git config branch.#{branch_name}.description")
-        .and_return([nil, stdout, nil, nil])
+      setup_command("git config branch.#{branch_name}.description", description)
     end
 
     context 'rev length is 7' do
