@@ -9,11 +9,17 @@ module GitTopic
     class Branches
       include Term::ANSIColor
       include GitTopic::Formatter::Helper
+
+      def initialize(options)
+        @all = options[:all]
+      end
       Branch = Struct.new('Branch', :name, :rev)
 
       def print
-        puts '[Branches]'
-        puts ''
+        if @all
+          puts '[Branches]'
+          puts ''
+        end
         branches, current_branch = parse_branches
         print_header(branches.first)
         print_contents(branches, current_branch)

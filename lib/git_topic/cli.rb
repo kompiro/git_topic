@@ -16,6 +16,7 @@ module GitTopic
 
     desc 'list', 'Show managed topics'
     option :version, aliases: 'v'
+    option :all, aliases: 'a'
     def list
       # Show version if -v specified
       if options[:version]
@@ -23,7 +24,7 @@ module GitTopic
         return
       end
 
-      command = GitTopic::Commands::List.new
+      command = GitTopic::Commands::List.new options
       command.execute
     end
 
