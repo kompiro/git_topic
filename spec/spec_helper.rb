@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bundler/setup'
 require 'git_topic'
 require 'pry'
@@ -12,4 +14,14 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.define_derived_metadata do |meta|
+    meta[:aggregate_failures] = true
+  end
+end
+
+def setup_command(command, output)
+  stdout = StringIO.new(output)
+  allow(Open3).to receive(:popen3)
+    .with(command).and_return([nil, stdout, nil, nil])
 end

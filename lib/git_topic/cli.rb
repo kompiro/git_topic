@@ -4,8 +4,9 @@ require 'thor'
 require 'open3'
 
 require 'git_topic/version'
-require 'git_topic/commands/list'
+require 'git_topic/commands/add'
 require 'git_topic/commands/edit'
+require 'git_topic/commands/list'
 require 'git_topic/commands/show'
 
 module GitTopic
@@ -15,6 +16,7 @@ module GitTopic
 
     desc 'list', 'Show managed topics'
     option :version, aliases: 'v'
+    option :all, aliases: 'a'
     def list
       # Show version if -v specified
       if options[:version]
@@ -22,7 +24,7 @@ module GitTopic
         return
       end
 
-      command = GitTopic::Commands::List.new
+      command = GitTopic::Commands::List.new options
       command.execute
     end
 
@@ -43,10 +45,10 @@ module GitTopic
       puts GitTopic::VERSION
     end
 
-    desc 'add topic_name', 'Remember topic'
-    def add(topic_name)
-      puts "add #{topic_name}"
-      raise 'not implemented'
+    desc 'add topic_name summary', 'Remember topic'
+    def add(topic_name, summary)
+      command = GitTopic::Commands::Add.new topic_name, summary
+      command.execute
     end
 
     desc 'start topic_name', 'Transfer topic_name to branch to implement code'
