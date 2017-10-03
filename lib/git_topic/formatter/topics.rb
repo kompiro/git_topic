@@ -20,7 +20,7 @@ module GitTopic
       private
 
       def print_header
-        header_format = '%-20s %s'
+        header_format = '  %-20s %s'
         puts format(header_format, :Topic, :Summary)
         puts '-' * 80
       end
@@ -55,7 +55,7 @@ module GitTopic
       def print_line(topic)
         truncated_name = truncate(topic.name)
         summary = topic.summary
-        puts format("#{bold}%-20s#{clear} %s", truncated_name, summary)
+        puts format("  #{bold}%-20s#{clear} %s", truncated_name, summary)
       end
     end
   end
