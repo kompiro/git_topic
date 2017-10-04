@@ -13,12 +13,12 @@ Install it yourself as:
 ## Usage
 
     Commands:
-      git-topic [list]                 # Show managed topics
+      git-topic [list] [-a]                 # Show managed topics
       git-topic edit [branch_name]     # Edit topic description
       git-topic show [branch_name]     # Show topic description
+      git-topic add topic_name         # Remember topic
     
     Plan to support:
-      git-topic add topic_name         # Remember topic
       git-topic start topic_name       # Transfer topic_name to branch to implement code
       git-topic publish [branch_name]  # Create pull request using branch description
 
