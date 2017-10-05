@@ -16,8 +16,8 @@ module GitTopic
     default_command :list
 
     desc 'list', 'Show managed topics'
-    option :version, aliases: 'v'
-    option :all, aliases: 'a'
+    option :version, aliases: 'v', desc: 'Show version'
+    option :all, aliases: 'a', desc: 'Show all information'
     def list
       # Show version if -v specified
       if options[:version]
@@ -52,7 +52,7 @@ module GitTopic
       command.execute
     end
 
-    desc '', ''
+    desc 'delete topic_name', 'Delete topic'
     def delete(topic_name)
       command = GitTopic::Commands::Delete.new topic_name
       command.execute
