@@ -5,6 +5,7 @@ require 'open3'
 
 require 'git_topic/version'
 require 'git_topic/commands/add'
+require 'git_topic/commands/delete'
 require 'git_topic/commands/edit'
 require 'git_topic/commands/list'
 require 'git_topic/commands/show'
@@ -15,8 +16,8 @@ module GitTopic
     default_command :list
 
     desc 'list', 'Show managed topics'
-    option :version, aliases: 'v'
-    option :all, aliases: 'a'
+    option :version, aliases: 'v', desc: 'Show version'
+    option :all, aliases: 'a', desc: 'Show all information'
     def list
       # Show version if -v specified
       if options[:version]
@@ -48,6 +49,12 @@ module GitTopic
     desc 'add topic_name summary', 'Remember topic'
     def add(topic_name, summary)
       command = GitTopic::Commands::Add.new topic_name, summary
+      command.execute
+    end
+
+    desc 'delete topic_name', 'Delete topic'
+    def delete(topic_name)
+      command = GitTopic::Commands::Delete.new topic_name
       command.execute
     end
 
