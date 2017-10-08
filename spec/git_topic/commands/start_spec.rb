@@ -23,10 +23,20 @@ RSpec.describe GitTopic::Commands::Start do
       end
     end
 
-    xcontext 'valid case' do
+    context 'valid case' do
+      before do
+        setup_command('git config --get topic.new_topic', 'test')
+        allow(command).to receive(:system)
+      end
       let(:topic_name) { 'new_topic' }
 
-      it { expect { executed }.to output('start `new topic`').to_stdout }
+      it {
+        expect { executed }.to output(/start `new_topic`/).to_stdout
+        branch_command = 'git checkout -b new_topic'
+        expect(command).to have_received(:system).with(branch_command).once
+        desc_command = 'git config --add branch.new_topic.description test'
+        expect(command).to have_received(:system).with(desc_command).once
+      }
     end
   end
 end

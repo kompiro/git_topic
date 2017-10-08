@@ -14,3 +14,6 @@ Metrics/BlockLength:
 
 RSpec/NestedGroups:
   Max: 4
+
+RSpec/MultipleExpectations:
+  Enabled: false # This project enables to define multiple expectations
