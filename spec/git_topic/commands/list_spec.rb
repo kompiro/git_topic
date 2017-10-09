@@ -33,7 +33,7 @@ RSpec.describe GitTopic::Commands::List do
 
       it { expect { executed } .to output(/Branch\s+Rev\s+Summary/).to_stdout }
       it { expect { executed } .to output(/\*.*master.*mainline/).to_stdout }
-      it { expect { executed } .to output(/.*branc\.\.\..*/).to_stdout }
+      it { expect { executed } .to output(/.*branchname.*/).to_stdout }
     end
 
     context 'more log rev length' do
