@@ -18,15 +18,29 @@ module GitTopic
       def print
         puts "#{bold}[Branches]#{clear}" if @all
         branches, current_branch = parse_branches
-        print_header(branches.first)
+        parse_length(branches)
+        print_header
         print_contents(branches, current_branch)
       end
 
-      def print_header(branch)
-        rev_length = branch.rev.length
-        header_format = "  %-20s %-#{rev_length}s %s"
+      private
+
+      def print_header
+        header_format = "  %-#{@name_length}s %-#{@rev_length}s %s"
         puts format(header_format, :Branch, :Rev, :Summary)
         puts '-' * 80
+      end
+
+      def parse_length(branches)
+        @name_length = name_length branches
+        @rev_length = branches.first.rev.length
+      end
+
+      NAME_LENGTH = 10
+
+      def name_length(branches)
+        longest_name_length = branches.map(&:name).map(&:length).max
+        longest_name_length > NAME_LENGTH ? longest_name_length : NAME_LENGTH
       end
 
       def print_contents(branches, current_branch)
@@ -68,8 +82,8 @@ module GitTopic
         description = get_description_of branch
         return if description.nil?
         branch_format = branch_format(branch_name, current_branch)
-        truncated_name = truncate(branch_name)
-        puts format("#{branch_format} %s %s", truncated_name, rev, description)
+        truncated_desc = truncate(description, truncate_at: 80)
+        puts format("#{branch_format} %s %s", branch_name, rev, truncated_desc)
       end
 
       def get_description_of(branch)
@@ -82,9 +96,9 @@ module GitTopic
 
       def branch_format(branch_name, current_branch)
         if branch_name == current_branch
-          "* #{green}#{bold}%-20s#{clear}"
+          "* #{green}#{bold}%-#{@name_length}s#{clear}"
         else
-          "  #{bold}%-20s#{clear}"
+          "  #{bold}%-#{@name_length}s#{clear}"
         end
       end
     end
