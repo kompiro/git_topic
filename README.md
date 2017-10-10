@@ -18,9 +18,9 @@ Install it yourself as:
       git-topic show [branch_name]          # Show topic description
       git-topic add topic_name              # Remember topic
       git-topic delete topic_name           # Delete topic
+      git-topic start topic_name            # Start the topic to branch to implement code
 
     Plan to support:
-      git-topic start topic_name       # Transfer topic_name to branch to implement code
       git-topic publish [branch_name]  # Create pull request using branch description
 
 ## Development
