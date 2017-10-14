@@ -9,6 +9,7 @@ require 'git_topic/commands/delete'
 require 'git_topic/commands/edit'
 require 'git_topic/commands/list'
 require 'git_topic/commands/show'
+require 'git_topic/commands/start'
 
 module GitTopic
   # CLI command entry point
@@ -60,8 +61,8 @@ module GitTopic
 
     desc 'start topic_name', 'Transfer topic_name to branch to implement code'
     def start(topic_name)
-      puts "start #{topic_name}"
-      raise 'not implemented'
+      command = GitTopic::Commands::Start.new topic_name
+      command.execute
     end
 
     desc 'publish [branch_name]', 'Create pull request using branch description'
