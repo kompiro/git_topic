@@ -3,7 +3,15 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'git_topic/version'
-def development_dependencies(spec)
+
+def add_runtime_dependencies(spec)
+  spec.add_runtime_dependency 'thor', '~> 0.20.0'
+  spec.add_runtime_dependency 'term-ansicolor', '~> 1.6.0'
+  spec.add_runtime_dependency 'octokit', '~> 4.0'
+  spec.add_runtime_dependency 'netrc', '~> 0.11'
+end
+
+def add_development_dependencies(spec)
   spec.add_development_dependency 'bundler', '~> 1.15'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
@@ -33,9 +41,6 @@ DESC
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'thor', '~> 0.20.0'
-  spec.add_runtime_dependency 'term-ansicolor', '~> 1.6.0'
-  spec.add_runtime_dependency 'octokit', '~> 4.0'
-
-  development_dependencies(spec)
+  add_runtime_dependencies(spec)
+  add_development_dependencies(spec)
 end
