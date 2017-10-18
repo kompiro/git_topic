@@ -10,6 +10,7 @@ require 'git_topic/commands/edit'
 require 'git_topic/commands/list'
 require 'git_topic/commands/show'
 require 'git_topic/commands/start'
+require 'git_topic/commands/publish'
 
 module GitTopic
   # CLI command entry point
@@ -67,8 +68,8 @@ module GitTopic
 
     desc 'publish [branch_name]', 'Create pull request using branch description'
     def publish(branch_name)
-      puts "publish #{branch_name}"
-      raise 'not implemented'
+      command = GitTopic::Commands::Publish.new branch_name
+      command.execute
     end
   end
 end
