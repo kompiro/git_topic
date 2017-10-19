@@ -11,6 +11,7 @@ AllCops:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+    - 'git_topic.gemspec'
 
 RSpec/NestedGroups:
   Max: 4
