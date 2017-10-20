@@ -10,6 +10,7 @@ require 'git_topic/commands/edit'
 require 'git_topic/commands/list'
 require 'git_topic/commands/show'
 require 'git_topic/commands/start'
+require 'git_topic/commands/publish'
 
 module GitTopic
   # CLI command entry point
@@ -65,10 +66,12 @@ module GitTopic
       command.execute
     end
 
-    desc 'publish [branch_name]', 'Create pull request using branch description'
-    def publish(branch_name)
-      puts "publish #{branch_name}"
-      raise 'not implemented'
+    # rubocop:disable Metrics/LineLength
+    desc 'publish repo base branch_name', 'Create pull request using branch description'
+    # rubocop:enable Metrics/LineLength
+    def publish(repo, base, branch_name)
+      command = GitTopic::Commands::Publish.new repo, branch_name, base
+      command.execute
     end
   end
 end
