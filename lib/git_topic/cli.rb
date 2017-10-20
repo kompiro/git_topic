@@ -66,9 +66,11 @@ module GitTopic
       command.execute
     end
 
-    desc 'publish [branch_name]', 'Create pull request using branch description'
-    def publish(branch_name)
-      command = GitTopic::Commands::Publish.new branch_name
+    # rubocop:disable Metrics/LineLength
+    desc 'publish repo base branch_name', 'Create pull request using branch description'
+    # rubocop:enable Metrics/LineLength
+    def publish(repo, base, branch_name)
+      command = GitTopic::Commands::Publish.new repo, branch_name, base
       command.execute
     end
   end
