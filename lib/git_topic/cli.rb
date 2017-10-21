@@ -19,12 +19,12 @@ module GitTopic
     desc 'list', 'Show managed topics'
     option :version, aliases: 'v', desc: 'Show version'
     option :all, aliases: 'a', desc: 'Show all information'
+    option :edit, aliases: 'e', desc: 'Edit current topic description'
     def list
       # Show version if -v specified
-      if options[:version]
-        version if options[:version]
-        return
-      end
+      version && return if options[:version]
+      # Edit topic if -e specified
+      edit && return if options[:edit]
 
       command = GitTopic::Commands::List.new options
       command.execute
@@ -45,6 +45,7 @@ module GitTopic
     desc 'version', 'Show version'
     def version
       puts GitTopic::VERSION
+      true
     end
 
     desc 'add topic_name summary', 'Remember topic'
