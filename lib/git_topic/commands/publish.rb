@@ -15,7 +15,10 @@ module GitTopic
 
       def execute
         head = @branch_name
-        create_pull_request(@repo, @base, head)
+        response = create_pull_request(@repo, @base, head)
+        puts response[:html_url]
+      rescue StandardError => ex
+        STDERR.puts ex.message
       end
 
       private
