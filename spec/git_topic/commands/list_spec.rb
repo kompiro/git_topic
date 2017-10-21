@@ -15,10 +15,6 @@ RSpec.describe GitTopic::Commands::List do
       setup_branch_description('longlongnamebranchname', 'long name branch')
     end
 
-    def setup_branch_description(branch_name, description)
-      setup_command("git config branch.#{branch_name}.description", description)
-    end
-
     context 'rev length is 7' do
       before do
         output = <<~OUT

@@ -25,3 +25,7 @@ def setup_command(command, output)
   allow(Open3).to receive(:popen3)
     .with(command).and_return([nil, stdout, nil, nil])
 end
+
+def setup_branch_description(branch_name, description)
+  setup_command("git config branch.#{branch_name}.description", description)
+end

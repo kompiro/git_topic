@@ -70,7 +70,8 @@ module GitTopic
     desc 'publish repo base branch_name', 'Create pull request using branch description'
     # rubocop:enable Metrics/LineLength
     def publish(repo, base, branch_name)
-      command = GitTopic::Commands::Publish.new repo, branch_name, base
+      client = Octokit::Client.new(netrc: true)
+      command = GitTopic::Commands::Publish.new client, repo, branch_name, base
       command.execute
     end
   end

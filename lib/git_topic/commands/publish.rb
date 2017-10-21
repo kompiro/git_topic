@@ -4,9 +4,10 @@ require 'octokit'
 
 module GitTopic
   module Commands
-    # Publish command pushes branch and create pull request from description.
+    # Publish command creates pull request from description.
     class Publish
-      def initialize(repo, branch_name, base)
+      def initialize(client, repo, branch_name, base)
+        @client = client
         @repo = repo
         @branch_name = branch_name
         @base = base
@@ -14,20 +15,14 @@ module GitTopic
 
       def execute
         head = @branch_name
-        push_branch(head)
         create_pull_request(@repo, @base, head)
       end
 
       private
 
-      def push_branch(head)
-        system("git push origin #{head}")
-      end
-
       def create_pull_request(repo, base, branch_name)
-        client = Octokit::Client.new(netrc: true)
         title = load_title(branch_name)
-        client.create_pull_request(repo, base, branch_name, title)
+        @client.create_pull_request(repo, base, branch_name, title)
       end
 
       def load_title(head)
