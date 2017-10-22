@@ -10,6 +10,10 @@ module GitTopic
 
       def execute
         system("git branch --edit-description #{@topic_name}")
+        true
+      rescue e
+        puts e.message
+        true
       end
     end
   end
