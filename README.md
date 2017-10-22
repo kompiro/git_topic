@@ -13,15 +13,17 @@ Install it yourself as:
 ## Usage
 
     Commands:
-      git-topic [list] [-a]                 # Show managed topics
-      git-topic edit [branch_name]          # Edit topic description
-      git-topic show [branch_name]          # Show topic description
-      git-topic add topic_name              # Remember topic
-      git-topic delete topic_name           # Delete topic
-      git-topic start topic_name            # Start the topic to branch to implement code
+      git-topic [list] [-a]                         # Show managed topics
+      git-topic edit [branch_name]                  # Edit topic description
+      git-topic show [branch_name]                  # Show topic description
+      git-topic add topic_name                      # Remember topic
+      git-topic delete topic_name                   # Delete topic
+      git-topic start topic_name                    # Start the topic to branch to implement code
+      git-topic publish repo branch_name base       # Create pull request using branch description
+      
+### Authentication (for publish command)
 
-    Plan to support:
-      git-topic publish [branch_name]  # Create pull request using branch description
+publish command uses netrc to authenticate github. Please refer [octokit Using a netrc section](https://github.com/octokit/octokit.rb#using-a-netrc-file).
 
 ## Development
 
