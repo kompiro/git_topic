@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'git_topic/version'
@@ -25,6 +27,8 @@ DESC
 
   spec.add_runtime_dependency 'thor', '~> 0.20.0'
   spec.add_runtime_dependency 'term-ansicolor', '~> 1.6.0'
+  spec.add_runtime_dependency 'octokit', '~> 4.0'
+  spec.add_runtime_dependency 'netrc', '~> 0.11'
 
   spec.add_development_dependency 'bundler', '~> 1.15'
   spec.add_development_dependency 'rake', '~> 10.0'
